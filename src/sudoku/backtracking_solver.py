@@ -1,10 +1,9 @@
 """Here is contained all codes to solve a sudoku using backtracking."""
+
 from typing import Iterator
 
 import numpy as np
 import numpy.typing as npt
-
-from sudoku import Sudoku
 
 
 class UnsolvableSudoku(ValueError):
@@ -144,4 +143,3 @@ class BacktrackingSolver:
         board_repr += hline
 
         return board_repr
-

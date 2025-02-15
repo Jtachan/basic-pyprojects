@@ -5,7 +5,7 @@ Each one is defined as its own function, named as the tutorial.
 import random
 
 import numpy as np
-from bokeh.layouts import row, layout
+from bokeh.layouts import layout, row
 from bokeh.models import BoxAnnotation, Div, RangeSlider, Spinner
 from bokeh.plotting import figure, show
 

@@ -3,6 +3,7 @@
 This script will create an 'inventory.db' file. If the file already exist and the
 script is re-run, then the table will be updated again.
 """
+
 import sqlite3
 
 # Connect to SQLite database (or create it).
@@ -29,7 +30,7 @@ def add_product(name: str, price: float, quantity: int):
     try:
         cursor.execute(
             "INSERT INTO products (name, price, quantity) VALUES (?, ?, ?)",
-            (name, price, quantity)
+            (name, price, quantity),
         )
         conn.commit()
         print(f"Added product: {name}")
@@ -79,7 +80,7 @@ def delete_product(product_name: str):
 
 
 # Example usage
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Adding initial products
     add_product("Laptop", 999.99, 10)
     add_product("Phone", 449.99, 20)
