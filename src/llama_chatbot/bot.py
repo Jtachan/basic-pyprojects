@@ -1,6 +1,4 @@
-"""Llama chatbot using replicate."""
-
-from __future__ import annotations
+"""Bot."""
 
 import os
 from typing import Optional

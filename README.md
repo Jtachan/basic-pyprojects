@@ -11,7 +11,4 @@ All projects are at the `src/` folder with the following characteristics:
 
 ## Index
 
-- **Algorithms**
-    - [Sudoku backtracking solver (DFS)](src/sudoku)
-- **AI**
-    - [Llama2 terminal chatbot](src/llama_chatbot)
+- [Sudoku backtracking solver](src/sudoku)

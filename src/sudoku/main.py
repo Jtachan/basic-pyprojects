@@ -3,9 +3,9 @@
 This script creates the sudoku puzzle using the py-sudoku package.
 """
 
+from sudoku import Sudoku
 from backtracking_solver import BacktrackingSolver
 
-from sudoku import Sudoku
 
 if __name__ == "__main__":
     # The value 'difficulty' should be a float in the range (0, 1).

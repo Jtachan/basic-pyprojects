@@ -3,8 +3,11 @@ Each one is defined as its own function, named as the tutorial.
 """
 
 import random
+
+import numpy as np
+from bokeh.layouts import row, layout
+from bokeh.models import BoxAnnotation, Div, RangeSlider, Spinner
 from bokeh.plotting import figure, show
-from bokeh.models import BoxAnnotation
 
 
 def create_a_simple_line_chart() -> figure:
@@ -56,8 +59,8 @@ def adding_legends_text_annotations() -> figure:
     This single example takes all the changes from the three examples into a single
     one. There are some changes that are skipped to keep the final plot clearer.
     """
-    x = list(range(0, 51))
-    y = random.sample(range(0, 100), 51)
+    x = list(range(51))
+    y = random.sample(range(100), 51)
 
     plot = figure(title="Legend and headline example with box annotation")
 
@@ -97,6 +100,76 @@ def adding_legends_text_annotations() -> figure:
     return plot
 
 
+def vectorizing_glyph_properties():
+    """https://docs.bokeh.org/en/latest/docs/first_steps/first_steps_5.html"""
+    size = 1000
+    x = np.random.random(size=size) * 100
+    y = np.random.random(size=size) * 100
+
+    # Generation RGB hex colors in relation to 'y':
+    radii = y / 100 * 2
+    colors = [f"#{255:02x}{int(val * 255 / 100):02x}{255:02x}" for val in y]
+
+    # Defining plot
+    p = figure(
+        title="Vectorized colors and radii example",
+        sizing_mode="stretch_width",
+        max_width=500,
+        height=250,
+    )
+    p.circle(
+        x, y, radius=radii, fill_color=colors, fill_alpha=0.6, line_color="lightgrey"
+    )
+    return p
+
+
+def combining_plots() -> row:
+    """https://docs.bokeh.org/en/latest/docs/first_steps/first_steps_6.html"""
+    x = list(range(11))
+    y1 = [10 - i for i in x]
+    y2 = [abs(i - 5) for i in x]
+
+    # Creating three plots, one for each rendering:
+    s1 = figure(width=250, height=250, background_fill_color="#fafafa")
+    s2 = figure(width=250, height=250, background_fill_color="#fafafa")
+    s3 = figure(width=250, height=250, background_fill_color="#fafafa")
+
+    s1.scatter(x, x, marker="circle", size=12, color="grey", alpha=0.8)
+    s2.scatter(x, y1, marker="triangle", size=12, color="green", alpha=0.8)
+    s3.scatter(x, y2, marker="square", size=12, color="red", alpha=0.8)
+
+    return row(children=[s1, s2, s3], sizing_mode="scale_width")
+
+
+def using_widgets() -> layout:
+    """https://docs.bokeh.org/en/latest/docs/first_steps/first_steps_9.html"""
+    x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    y = [4, 5, 5, 7, 2, 6, 4, 9, 1, 3]
+
+    p = figure(x_range=(1, 9), width=500, height=250)
+    points = p.scatter(x=x, y=y, size=30, fill_color="#21a7df")
+
+    div = Div(
+        text="Select the circle's size using this control element:",
+        width=200,
+        height=30,
+    )
+    spinner = Spinner(
+        title="Circle size", low=0, high=60, step=5, value=points.glyph.size, width=200
+    )
+    spinner.js_link("value", points.glyph, "size")
+    range_slider = RangeSlider(
+        title="Adjust x-axis range",
+        start=0,
+        end=len(x),
+        step=1,
+        value=(p.x_range.start, p.x_range.end),
+    )
+    range_slider.js_link("value", p.x_range, "start", attr_selector=0)
+    range_slider.js_link("value", p.x_range, "end", attr_selector=1)
+    return layout([[div, spinner], [range_slider], [p]])
+
+
 if __name__ == "__main__":
-    f = adding_legends_text_annotations()
-    show(f)
+    bokeh_plot = using_widgets()
+    show(bokeh_plot)

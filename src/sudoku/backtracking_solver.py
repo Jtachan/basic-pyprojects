@@ -1,17 +1,18 @@
 """Here is contained all codes to solve a sudoku using backtracking."""
-
 from typing import Iterator
 
 import numpy as np
 import numpy.typing as npt
 
+from sudoku import Sudoku
 
-class UnsolvableSudokuError(ValueError):
-    """Error for when the sudoku cannot be solved."""
+
+class UnsolvableSudoku(ValueError):
+    """Error for when the sudoku cannot be solved"""
 
 
 class BacktrackingSolver:
-    """Class to solve a sudoku puzzle using backtracking."""
+    """Class to solve a sudoku puzzle using backtracking"""
 
     def __init__(
         self,
@@ -114,12 +115,12 @@ class BacktrackingSolver:
         self._board[row_idx, col_idx] = 0
         return False
 
-    def solve(self) -> None:
-        """Solves the sudoku and prints the solution."""
+    def solve(self):
+        """Solves the sudoku and prints the solution"""
         if self._verbose:
             print(f"Initial state\n{self}")
         if not self._backtracking():
-            raise UnsolvableSudokuError("The given sudoku doesn't have a solution")
+            raise UnsolvableSudoku("The given sudoku doesn't have a solution")
         if self._verbose:
             print(f"Solution\n{self}")
 
@@ -143,3 +144,4 @@ class BacktrackingSolver:
         board_repr += hline
 
         return board_repr
+
