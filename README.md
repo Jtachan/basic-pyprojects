@@ -11,4 +11,17 @@ All projects are at the `src/` folder with the following characteristics:
 
 ## Index
 
-- [Sudoku backtracking solver](src/sudoku)
+- **Algorithms**
+    - [Sudoku backtracking solver (DFS)](src/sudoku)
+- **AI**
+    - [Llama2 Chatbot](src/llama_chatbot)
+
+## First steps
+
+This folder contains small scripts that might relate to someone's "first steps" into a new tool.
+Each script is named as the tool to be used with the prefix 'fs'.
+
+The following are the tools that have some first steps script:
+
+- Bokeh
+- SQLite3
