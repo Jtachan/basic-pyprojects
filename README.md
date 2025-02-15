@@ -9,3 +9,6 @@ All projects are at the `src/` folder with the following characteristics:
 - The `main.py` script is the principal scrip to run any of these projects.
 - A `Readme.md` is explaining all the logic and theory required to fully understand the project.
 
+## Index
+
+- [Sudoku backtracking solver](src/sudoku)
