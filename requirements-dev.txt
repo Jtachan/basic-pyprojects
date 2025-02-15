@@ -1,0 +1,4 @@
+# Installation of all requirement for development
+-r requirements.txt
+ruff
+pytest
