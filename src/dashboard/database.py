@@ -1,6 +1,13 @@
 """Here is contained all operations to be performed over the 'sales' table."""
 
+from __future__ import annotations
+
 import sqlite3
+from typing import Optional
+
+import pandas as pd
+
+TABLE_CATEGORIES = ["Electronics", "Clothing"]
 
 # Connect to the database:
 conn = sqlite3.connect("sales.db")
@@ -38,3 +45,28 @@ def reset_table() -> None:
         sales_data,
     )
     conn.commit()
+
+
+def fetch_data(
+    category: Optional[str] = None, date_range: Optional[tuple[str, str]] = None
+) -> pd.DataFrame:
+    """Fetching data from the table with optional conditions.
+
+    Parameters
+    ----------
+    category : str, optional
+        Category corresponding to the data.
+    date_range : tuple of two str, optional
+        Range of dates as (min, max), defined as strings. Each date must be defined as
+        'YYYY-MM-DD'.
+    """
+    query = "SELECT product, SUM(sales) as total_sales FROM sales"
+    conditions = []
+    if category:
+        conditions.append(f"category = '{category}'")
+    if date_range:
+        conditions.append(f"date BETWEEN '{date_range[0]}' AND '{date_range[1]}'")
+    if conditions:
+        query += "WHERE " + " AND ".join(conditions)
+    query += "GROUP BY product"
+    return pd.read_sql(query, conn)
