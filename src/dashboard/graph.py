@@ -1,17 +1,22 @@
-"""Functions/Operations to display the information using Bokeh."""
+"""Functions/Operations to display the information using Bokeh.
 
-from bokeh import models, plotting, transform
-from bokeh.layouts import column, row
-from bokeh.io import curdoc
+To run the code use the following command:
+    bokeh serve --show graph.py
+"""
 
-from database import *
 from typing import Any
 
+from bokeh import models, plotting, transform
+from bokeh.io import curdoc
+from bokeh.layouts import column, row
+from database import init_table, fetch_data, TABLE_CATEGORIES
 
 CATEGORY_OPTIONS = ["All", *TABLE_CATEGORIES]
 
+# Fixme: The graph is correctly initialized, but it disappears when anything is modified.
 
 # Initialize the data source:
+init_table()
 data = fetch_data()
 source = models.ColumnDataSource(data)
 
@@ -32,7 +37,10 @@ plot.vbar(
 # Widgets:
 category_select = models.Select(title="Category", value="All", options=CATEGORY_OPTIONS)
 date_range_slider = models.DateRangeSlider(
-    title="Date range", value=("2023-10-01", "2023-10-06"), start="2023-10-01", end="2023-10-06"
+    title="Date range",
+    value=("2023-10-01", "2023-10-06"),
+    start="2023-10-01",
+    end="2023-10-06",
 )
 
 
