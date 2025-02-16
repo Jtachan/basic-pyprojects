@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sqlite3
 from contextlib import contextmanager
-from typing import Optional
+from typing import Optional, Iterable
 
 import pandas as pd
 
@@ -22,7 +22,7 @@ def get_db_connection() -> sqlite3.connect:
         conn.close()
 
 
-def init_table() -> None:
+def init_table_with_default_values() -> None:
     """Table initialization.
 
     Creation of the table 'sales' when this one does not exist.
@@ -58,8 +58,8 @@ def init_table() -> None:
         )
 
 
-def fetch_data(
-    category: Optional[str] = None, date_range: Optional[tuple[str, str]] = None
+def fetch_total_sales_data(
+    category: Optional[str] = None, date_range: Optional[Iterable[str]] = None
 ) -> pd.DataFrame:
     """Fetching data from the table with optional conditions.
 
@@ -84,3 +84,12 @@ def fetch_data(
             query += " WHERE " + " AND ".join(conditions)
         query += " GROUP BY product"
         return pd.read_sql(query, conn, params=params)
+
+
+def get_date_range() -> tuple[str, str]:
+    """Get the date range defined within the table data."""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT date FROM sales")
+        result = cursor.fetchall()
+    return min(result)[0], max(result)[0]
