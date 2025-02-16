@@ -9,7 +9,7 @@ from typing import Any
 from bokeh import plotting, transform
 from bokeh.io import curdoc
 from bokeh.layouts import column, row
-from bokeh.models import FactorRange, ColumnDataSource, Select, DateRangeSlider
+from bokeh.models import ColumnDataSource, Select, DateRangeSlider
 
 from database import (
     init_table_with_default_values,
@@ -79,14 +79,11 @@ def update_plot(_attribute: str, _old: Any, _new: Any):
 
         # Update ColumnDataSource:
         source.data = ColumnDataSource.from_df(new_data)
-        # Update x-axis factors if applicable
-        if isinstance(plot.x_range, FactorRange):
-            plot.x_range.factors = list(new_data["product"])
-        else:
-            print(
-                "x_range is not a FactorRange. "
-                "Ensure the plot uses a categorical x-axis."
-            )
+        # Update X- and Y-axis based on the new data.
+        plot.x_range.factors = list(new_data["product"])
+        max_sales = new_data["total_sales"].max()
+        plot.y_range.end = 1 if max_sales == 0 else max_sales
+
     except Exception as e:
         print(f"Error updating the plot: {e}")
 
