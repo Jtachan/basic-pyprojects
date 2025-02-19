@@ -10,3 +10,15 @@ Each element in the table is defined by:
 - Total revenue of sales.
 - Date it was purchased.
 
+[`Bokeh`](https://bokeh.org/) is then used as the backend to plot all the information, as a vertical bar graph, on an html interactive file.
+This is launched with the following command:
+
+```commandline
+bokeh serve --show graph.py
+```
+
+The graph displays the ammount of sales as the Y-axis and the product on the X-axis.
+It also allows filtering by:
+
+- Product category.
+- Range of purchase date.
