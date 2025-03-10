@@ -22,5 +22,5 @@ Each script is named as the tool to be used with the prefix 'fs'.
 
 The following are the tools that have some first steps script:
 
-- Bokeh
-- SQLite3
+- [Bokeh](https://bokeh.org/)
+- [SQLite](https://www.sqlite.org/)

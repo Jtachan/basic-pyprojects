@@ -1,6 +1,6 @@
 """Operations over a database with SQLite.
 
-This script will create an 'inventory.db' file. If the file already exist and the
+This script will create an 'inventory.db' file. If the file already exists and the
 script is re-run, then the table will be updated again.
 """
 

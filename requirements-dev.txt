@@ -1,3 +1,0 @@
-# Installation of all requirement for development
-ruff
-pytest
